@@ -44,7 +44,7 @@
 #define EXTI_BASE_ADDRESS                      0x40010400UL
 #define AFIO_BASE_ADDRESS                      0x40010000UL
 
-////APB1 peripherals base address
+//APB1 peripherals base address
 
 //RCC Register Definition Structure
 typedef struct{
@@ -79,14 +79,7 @@ volatile u32 GPIO_LCKR;
 #define GPIOE  (GPIO_REG*)(GPIO_E_BASE_ADDRESS)
 #define GPIOF  (GPIO_REG*)(GPIO_F_BASE_ADDRESS)
 #define GPIOG  (GPIO_REG*)(GPIO_G_BASE_ADDRESS)
-//GPIO Peripheral Definition
-/*GPIO_REG* GPIOA = (GPIO_REG*)(GPIO_A_BASE_ADDRESS);
-GPIO_REG* GPIOB = (GPIO_REG*)(GPIO_B_BASE_ADDRESS);
-GPIO_REG* GPIOC = (GPIO_REG*)(GPIO_C_BASE_ADDRESS);
-GPIO_REG* GPIOD = (GPIO_REG*)(GPIO_D_BASE_ADDRESS);
-GPIO_REG* GPIOE = (GPIO_REG*)(GPIO_E_BASE_ADDRESS);
-GPIO_REG* GPIOF = (GPIO_REG*)(GPIO_F_BASE_ADDRESS);
-GPIO_REG* GPIOG = (GPIO_REG*)(GPIO_G_BASE_ADDRESS);*/
+
 
 
 //AFIO Register Definition Structure
@@ -100,6 +93,24 @@ volatile u8 AFIO_EXTICR4;
 volatile u8 AFIO_MAPR2;
 }AFIO_REG;
 
+
+//SysTick Register Definition Structure
+typedef struct{
+	volatile u32 SYST_CSR;
+	volatile u32 SYST_RVR;
+	volatile u32 SYST_CVR;
+	volatile u32 SYST_CALIB;
+}SYST;
+
+#define SYSTICK_BASE_ADDRESS                   0xE000E010UL
+#define SYSTICK                             ((SYST*)(SYSTICK_BASE_ADDRESS))
+
+
+//SysTick Control and Status Register
+#define COUNTFLAG          16
+#define CLKSOURCE          2
+#define TICKINT            1
+#define ENABLE             0
 //RCC_CR Register
 
 #define RCC_PLL_RDY        25
