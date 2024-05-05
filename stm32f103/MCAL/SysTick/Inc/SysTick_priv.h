@@ -14,6 +14,6 @@
 
 #define SYSTICK_MASK_BIT                      1
 
-
+#define SYSTEM_CLK           8000000UL
 
 #endif /* SYSTICK_PRIV_H_ */

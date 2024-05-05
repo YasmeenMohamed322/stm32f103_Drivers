@@ -10,6 +10,7 @@
 
 #include "../Inc/SysTick_priv.h"
 
+static u32 SysTick_Ratio = 0;
 
 ES_t SYSTICK_enuInit(u8 copy_u8ClkSource)
 {
@@ -24,11 +25,13 @@ ES_t SYSTICK_enuInit(u8 copy_u8ClkSource)
 	if(copy_u8ClkSource == SYSTICK_AHB_CLOCK_DIVISED_BY_8)
 	{
 		SYSTICK -> SYST_CSR &= ~ ( SYSTICK_MASK_BIT << CLKSOURCE);
+		SysTick_Ratio = (SYSTEM_CLK / 8)/1000000;
 	}
 
 	else if(copy_u8ClkSource == SYSTICK_AHB_CLOCK)
 	{
 		SYSTICK -> SYST_CSR |= ( SYSTICK_MASK_BIT << CLKSOURCE);
+		SysTick_Ratio = (SYSTEM_CLK/1000000);
 	}
 	else
 	{
@@ -39,24 +42,16 @@ ES_t SYSTICK_enuInit(u8 copy_u8ClkSource)
 }
 
 
-ES_t SYSTICK_enuDisableCounter(void)
-{
-	ES_t Local_enuErrorStates = ES_NOK;
-
-	SYSTICK -> SYST_CSR &= ~ ( SYSTICK_MASK_BIT << ENABLE);
-
-	return Local_enuErrorStates;
-
-}
-
 ES_t SYSTICK_enuSychDelay(u32 copy_u32Tick)
 {
 	ES_t Local_enuErrorStates = ES_NOK;
 
 	if(copy_u32Tick <= 0x00ffffff)
 	{
+
+		u32 Load = copy_u32Tick * (1000000/SysTick_Ratio);
 		//Load The value of ticks to Reload register
-		SYSTICK -> SYST_RVR = copy_u32Tick;
+		SYSTICK -> SYST_RVR = Load;
 		//Start the timer
 		SYSTICK -> SYST_CSR |= (SYSTICK_MASK_BIT >> ENABLE );
 		//Wait for flag

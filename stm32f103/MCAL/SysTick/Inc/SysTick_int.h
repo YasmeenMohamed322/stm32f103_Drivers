@@ -13,11 +13,9 @@ typedef enum{
 	AHB_CLOCK
 }CLKSOURCE;
 
-#define SYSTEM_CLK           8000000UL
+
 
 ES_t SYSTICK_enuInit(u8 copy_u8ClkSource);
-
-ES_t SYSTICK_enuDisableCounter(void);
 
 ES_t SYSTICK_enuSychDelay(u32 copy_u32Tick);
 
