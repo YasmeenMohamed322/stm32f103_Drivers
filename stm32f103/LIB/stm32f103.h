@@ -111,6 +111,28 @@ typedef struct{
 #define CLKSOURCE          2
 #define TICKINT            1
 #define ENABLE             0
+
+
+//NVIC Registers Definition Structure
+typedef struct{
+	volatile u32 NVIC_ISER[7];
+	volatile u32 RES1[25];
+	volatile u32 NVIC_ICER[7];
+	volatile u32 RES2[25];
+	volatile u32 NVIC_ISPR[7];
+	volatile u32 RES3[25];
+	volatile u32 NVIC_ICPR[7];
+	volatile u32 RES4[25];
+	volatile u32 NVIC_IABR[7];
+	volatile u32 RES5[57];
+	volatile u32 NVIC_IPR[17];
+
+}NVIC_REG;
+
+#define NVIC_BASE_ADDRESS                      0xE000E100UL
+#define NVIC                                 ((NVIC_REG*)NVIC_BASE_ADDRESS)
+
+#define SCB_AIRCR                             (*(volatile u32*)(0xE000ED0C))
 //RCC_CR Register
 
 #define RCC_PLL_RDY        25
