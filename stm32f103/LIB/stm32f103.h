@@ -93,46 +93,6 @@ volatile u8 AFIO_EXTICR4;
 volatile u8 AFIO_MAPR2;
 }AFIO_REG;
 
-
-//SysTick Register Definition Structure
-typedef struct{
-	volatile u32 SYST_CSR;
-	volatile u32 SYST_RVR;
-	volatile u32 SYST_CVR;
-	volatile u32 SYST_CALIB;
-}SYST;
-
-#define SYSTICK_BASE_ADDRESS                   0xE000E010UL
-#define SYSTICK                             ((SYST*)(SYSTICK_BASE_ADDRESS))
-
-
-//SysTick Control and Status Register
-#define COUNTFLAG          16
-#define CLKSOURCE          2
-#define TICKINT            1
-#define ENABLE             0
-
-
-//NVIC Registers Definition Structure
-typedef struct{
-	volatile u32 NVIC_ISER[7];
-	volatile u32 RES1[25];
-	volatile u32 NVIC_ICER[7];
-	volatile u32 RES2[25];
-	volatile u32 NVIC_ISPR[7];
-	volatile u32 RES3[25];
-	volatile u32 NVIC_ICPR[7];
-	volatile u32 RES4[25];
-	volatile u32 NVIC_IABR[7];
-	volatile u32 RES5[57];
-	volatile u32 NVIC_IPR[17];
-
-}NVIC_REG;
-
-#define NVIC_BASE_ADDRESS                      0xE000E100UL
-#define NVIC                                 ((NVIC_REG*)NVIC_BASE_ADDRESS)
-
-#define SCB_AIRCR                             (*(volatile u32*)(0xE000ED0C))
 //RCC_CR Register
 
 #define RCC_PLL_RDY        25
@@ -205,6 +165,69 @@ typedef struct{
 #define RCC_TIM4EN         2
 #define RCC_TIM3EN         1
 #define RCC_TIM2EN         0
+
+
+//Core peripherals
+
+//SysTick Register Definition Structure
+typedef struct{
+	volatile u32 SYST_CSR;
+	volatile u32 SYST_RVR;
+	volatile u32 SYST_CVR;
+	volatile u32 SYST_CALIB;
+}SYST;
+
+#define SYSTICK_BASE_ADDRESS                   0xE000E010UL
+#define SYSTICK                             (SYST*)(SYSTICK_BASE_ADDRESS)
+
+
+//SysTick Control and Status Register
+#define COUNTFLAG          16
+#define CLKSOURCE          2
+#define TICKINT            1
+#define ENABLE             0
+
+
+//NVIC Registers Definition Structure
+typedef struct{
+	volatile u32 NVIC_ISER[7];
+	volatile u32 RES1[25];
+	volatile u32 NVIC_ICER[7];
+	volatile u32 RES2[25];
+	volatile u32 NVIC_ISPR[7];
+	volatile u32 RES3[25];
+	volatile u32 NVIC_ICPR[7];
+	volatile u32 RES4[25];
+	volatile u32 NVIC_IABR[7];
+	volatile u32 RES5[57];
+	volatile u32 NVIC_IPR[17];
+
+}NVIC_REG;
+
+#define NVIC_BASE_ADDRESS                      0xE000E100UL
+#define NVIC                                 ((NVIC_REG*)NVIC_BASE_ADDRESS)
+
+// SCB Registers Definition
+typedef struct{
+	volatile u32 SCB_ACTLR;
+	volatile u32 SCB_CPUID;
+	volatile u32 SCB_ICSR ;
+	volatile u32 SCB_VTOR ;
+	volatile u32 SCB_AIRCR ;
+	volatile u32 SCB_SCR ;
+	volatile u32 SCB_CCR ;
+	volatile u32 SCB_SHPR[3];
+	volatile u32 SCB_SHCRS ;
+	volatile u32 SCB_CFSR ;
+	volatile u32 SHB_HFSR ;
+	volatile u32 SCB_MMAR ;
+	volatile u32 SCB_BFAR ;
+}SCB_REG;
+
+#define SCB_BASE_ADDRESS                       0xE000E008UL
+#define SCB                                   ((SCB_REG*)SCB_BASE_ADDRESS)
+
+
 
 
 #endif /* STM32F103_H_ */

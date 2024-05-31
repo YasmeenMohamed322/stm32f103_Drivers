@@ -119,7 +119,7 @@ ES_t NVIC_enuSetPriorityLevel(u8 copy_u8PriorityLevel,u8 copy_u8IntSource)
 		{
 			u8 Local_RegisterNum = copy_u8IntSource / 4;
 			u8 Local_ByteNum = copy_u8IntSource % 4;
-            SCB_AIRCR = 0x05FA0500;    //Group 3
+           // SCB_AIRCR = 0x05FA0500;    //Group 3
             NVIC -> NVIC_ISPR[Local_RegisterNum] &= ~ (0b1111 << ((8 * Local_ByteNum) + 4 ));
             NVIC -> NVIC_ISPR[Local_RegisterNum] |= (copy_u8PriorityLevel << ((8 * Local_ByteNum) + 4 ));
 
