@@ -72,13 +72,13 @@ volatile u32 GPIO_BRR;
 volatile u32 GPIO_LCKR;
 }GPIO_REG;
 
-#define GPIOA  (GPIO_REG*)(GPIO_A_BASE_ADDRESS)
-#define GPIOB  (GPIO_REG*)(GPIO_B_BASE_ADDRESS)
-#define GPIOC  (GPIO_REG*)(GPIO_C_BASE_ADDRESS)
-#define GPIOD  (GPIO_REG*)(GPIO_D_BASE_ADDRESS)
-#define GPIOE  (GPIO_REG*)(GPIO_E_BASE_ADDRESS)
-#define GPIOF  (GPIO_REG*)(GPIO_F_BASE_ADDRESS)
-#define GPIOG  (GPIO_REG*)(GPIO_G_BASE_ADDRESS)
+#define GPIOA  ((GPIO_REG*)GPIO_A_BASE_ADDRESS)
+#define GPIOB  ((GPIO_REG*)GPIO_B_BASE_ADDRESS)
+#define GPIOC  ((GPIO_REG*)GPIO_C_BASE_ADDRESS)
+#define GPIOD  ((GPIO_REG*)GPIO_D_BASE_ADDRESS)
+#define GPIOE  ((GPIO_REG*)GPIO_E_BASE_ADDRESS)
+#define GPIOF  ((GPIO_REG*)GPIO_F_BASE_ADDRESS)
+#define GPIOG  ((GPIO_REG*)GPIO_G_BASE_ADDRESS)
 
 
 
@@ -167,6 +167,19 @@ volatile u8 AFIO_MAPR2;
 #define RCC_TIM2EN         0
 
 
+// EXTI Register Definition Structure
+
+typedef struct {
+	volatile u32 EXTI_IMR;
+	volatile u32 EXTI_EMR;
+	volatile u32 EXTI_RTSR;
+	volatile u32 EXTI_FTSR;
+	volatile u32 EXTI_SWIER;
+	volatile u32 EXTI_PR;
+}EXTI_t;
+
+#define EXTI                             ((EXTI_t*)EXTI_BASE_ADDRESS)
+
 //Core peripherals
 
 //SysTick Register Definition Structure
@@ -178,7 +191,7 @@ typedef struct{
 }SYST;
 
 #define SYSTICK_BASE_ADDRESS                   0xE000E010UL
-#define SYSTICK                             (SYST*)(SYSTICK_BASE_ADDRESS)
+#define SYSTICK                             ((SYST*)SYSTICK_BASE_ADDRESS)
 
 
 //SysTick Control and Status Register
