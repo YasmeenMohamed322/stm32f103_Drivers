@@ -49,4 +49,6 @@ ES_t EXTI_enuReadPendingFlag(u8 *EXTI_pu8PendingFlagValue , EXTI_InterruptLine I
 
 ES_t EXTI_enuClearPendingFlag(EXTI_InterruptLine InterruptLine);
 
+ES_t EXTI_enuCallBackFunction(void(*Copy_pvoidAppFun)(void*), void * Copy_pvoidAppparam,EXTI_InterruptLine InterruptLine);
+
 #endif /* EXTI_INT_H_ */

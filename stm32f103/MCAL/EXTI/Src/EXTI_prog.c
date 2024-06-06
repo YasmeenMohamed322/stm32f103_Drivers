@@ -11,6 +11,10 @@
 #include "../Inc/EXTI_priv.h"
 #include "../Inc/EXTI_int.h"
 
+
+static  void(*EXTI_pFun[16])(void*) = {NULL} ;
+static  void * EXTI_param[16] = {NULL};
+
 ES_t EXTI_enuEnableInterruptLine(EXTI_InterruptLine InterruptLine)
 {
 	ES_t Local_enuErrorStates = ES_NOK;
@@ -129,4 +133,54 @@ ES_t EXTI_enuClearPendingFlag(EXTI_InterruptLine InterruptLine)
 	}
 
 	return Local_enuErrorStates;
+}
+
+ES_t EXTI_enuCallBackFunction(void(*Copy_pvoidAppFun)(void*), void * Copy_pvoidAppparam,EXTI_InterruptLine InterruptLine)
+{
+
+	ES_t Local_enuErrorStates = ES_NOK;
+
+	if(Copy_pvoidAppFun != NULL)
+	{
+		EXTI_pFun[InterruptLine] = Copy_pvoidAppFun;
+		EXTI_param[InterruptLine] = Copy_pvoidAppparam ;
+	}
+	else
+	{
+		Local_enuErrorStates = ES_NULL_POINTER;
+	}
+
+	return Local_enuErrorStates;
+
+}
+
+void EXTI0_IRQHandler (void)
+{
+	EXTI_pFun[0](EXTI_param[0]);
+}
+
+void EXTI9_5_IRQHandler (void)
+{
+	if ((((EXTI -> EXTI_PR) >> EXTI5) & MASKING_BIT) == 1)
+	{
+
+		EXTI_pFun[5](EXTI_param[5]);
+
+	}
+	else if((((EXTI -> EXTI_PR) >> EXTI6) & MASKING_BIT) == 1)
+	{
+		EXTI_pFun[6](EXTI_param[6]);
+	}
+	else if((((EXTI -> EXTI_PR) >> EXTI7) & MASKING_BIT) == 1)
+	{
+		EXTI_pFun[7](EXTI_param[7]);
+	}
+	else if((((EXTI -> EXTI_PR) >> EXTI8) & MASKING_BIT) == 1)
+	{
+		EXTI_pFun[8](EXTI_param[8]);
+	}
+	else if((((EXTI -> EXTI_PR) >> EXTI9) & MASKING_BIT) == 1)
+	{
+		EXTI_pFun[9](EXTI_param[9]);
+	}
 }
