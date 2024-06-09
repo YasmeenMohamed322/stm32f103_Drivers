@@ -84,15 +84,14 @@ volatile u32 GPIO_LCKR;
 
 //AFIO Register Definition Structure
 typedef struct{
-volatile u8 AFIO_EVCR;
-volatile u8 AFIO_MAPR;
-volatile u8 AFIO_EXTICR1;
-volatile u8 AFIO_EXTICR2;
-volatile u8 AFIO_EXTICR3;
-volatile u8 AFIO_EXTICR4;
-volatile u8 AFIO_MAPR2;
+volatile u32 AFIO_EVCR;
+volatile u32 AFIO_MAPR;
+volatile u32 AFIO_EXTICR[4];
+volatile u32 AFIO_MAPR2;
 }AFIO_REG;
 
+
+#define AFIO             ((AFIO_REG*)AFIO_BASE_ADDRESS)
 //RCC_CR Register
 
 #define RCC_PLL_RDY        25
